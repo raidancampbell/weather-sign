@@ -47,4 +47,4 @@ class WeatherSign:
 
 if __name__ == '__main__':
     weather_sign = WeatherSign(os.environ['ACCUWEATHER_API_KEY'], '/dev/tty.usbserial-AE01IQ4F')
-    weather_sign.update_forever(0.1)
+    weather_sign.update_forever(1)

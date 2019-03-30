@@ -23,7 +23,7 @@ class WeatherSign:
         try:
             response.raise_for_status()
         except requests.HTTPError as e:
-            pass
+            print(e)
         d = json.loads(response.content)
         _time = d[0]['LocalObservationDateTime']
         deg_f = round(d[0]['Temperature']['Imperial']['Value'])
@@ -32,19 +32,15 @@ class WeatherSign:
         self.sign.display_temp_and_humidity(temp=deg_f, humidity=rh)
         time.sleep(30 * 60)
 
-    def update_forever(self, interval_min=30):
+    def update_forever(self):
         if self.scheduler and self.scheduler.running:
             return
         self.scheduler = BlockingScheduler()
-        self.scheduler.add_job(WeatherSign.update, trigger='interval', seconds=60 * interval_min, max_instances=1,
+        self.scheduler.add_job(WeatherSign.update, trigger='cron', minute="0,18", max_instances=1,
                                coalesce=True, args=[self])
         self.scheduler.start()
-
-    def __del__(self):
-        if self.scheduler:
-            self.scheduler.stop()
 
 
 if __name__ == '__main__':
     weather_sign = WeatherSign(os.environ['ACCUWEATHER_API_KEY'], '/dev/tty.usbserial-AE01IQ4F')
-    weather_sign.update_forever(1)
+    weather_sign.update_forever()

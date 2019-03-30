@@ -35,7 +35,7 @@ class WeatherSign:
         if self.scheduler and self.scheduler.running:
             return
         self.scheduler = BlockingScheduler()
-        self.scheduler.add_job(WeatherSign.update, trigger='cron', minute="0,18", max_instances=1,
+        self.scheduler.add_job(WeatherSign.update, trigger='cron', minute="0,30", max_instances=1,
                                coalesce=True, args=[self])
         self.scheduler.start()
 

@@ -12,8 +12,8 @@ class EL233:
         self.byte_size = byte_size
         self.stop_bits = stop_bits
         self.parity = parity
-        self.ser = None  #serial.Serial(port=self.serial_port, baudrate=self.baud_rate, bytesize=self.byte_size,
-                          #       parity=self.parity, stopbits=self.stop_bits, write_timeout=0, timeout=0)
+        self.ser = serial.Serial(port=self.serial_port, baudrate=self.baud_rate, bytesize=self.byte_size,
+                                 parity=self.parity, stopbits=self.stop_bits, write_timeout=0, timeout=0)
 
     def _write_value(self, value):
         stx = chr(2)  # start symbol

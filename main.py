@@ -30,7 +30,6 @@ class WeatherSign:
         rh = round(d[0]['RelativeHumidity'])
         print(f'{_time} temp: {deg_f}, humidity: {rh}')
         self.sign.display_temp_and_humidity(temp=deg_f, humidity=rh)
-        time.sleep(30 * 60)
 
     def update_forever(self):
         if self.scheduler and self.scheduler.running:
